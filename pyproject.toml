@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "failure-class"
+version = "0.1.0"
+description = "Stable failure classes for LLM runtime/provider-vs-model-quality triage: one enum, one classifier, stdlib only."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "StartupBros" }]
+keywords = ["llm", "evaluation", "reliability", "triage", "failure-classification"]
+
+[project.urls]
+Homepage = "https://github.com/StartupBros/failure-class"
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["failure_class"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
