@@ -45,6 +45,20 @@ classify_failure(successful_model_response=True, scorer_failed=True)
 # FailureClass.MODEL_QUALITY — a scored miss is never an infra failure
 ```
 
+For a runnable local walkthrough from the repository root:
+
+```console
+$ python3 -m examples.diagnose_attempt
+Simulated teaching fixtures; not live provider or replay evidence.
+observation=provider-auth | classification=auth | score=not-recorded | next_action=fix provider access; do not score
+observation=wrong-answer | classification=model-quality | score=0 | next_action=inspect model quality; record score 0
+observation=correct-answer | classification=none | score=1 | next_action=record successful score 1
+observation=grader-error | classification=grader-failure | score=not-recorded | next_action=fix grader outside classifier; do not score
+```
+
+These are deterministic teaching fixtures, not observations from a provider or
+replay. The grader exception is handled explicitly outside `classify_failure`.
+
 Precedence (highest first): model-quality-after-success, auth, timeout,
 connection, protocol, context/fit, wedged, abort, bare 5xx → wedged,
 scorer-failed alone → model-quality, none. HTTP status codes and exception
